@@ -1,0 +1,17 @@
+vagrant up - Sobe a máquina virtual
+vagrant ssh 'Nome da máquina' - Starta a máquina virtual
+
+Na máquina:
+
+cd / = Raiz
+ls = listar
+ls -a = listar arquivos
+pwd = mostra o caminho do diretório
+ls -la = traz o que é oculto
+chmod 777 'arquivo' ou chmod u+rw,g-r,o+x 'arquivo' = mudar permissão
+ls -l = lista detalhadamente
+chown:root vagrant 'arquivo'
+sudo = prefixo para ter permissão total
+useradd 'nome'
+cat 'arquivo' = abre arquivo texto
+echo "Texto" > 'arquivo' = escreve no arquivo ('>' escreve tudo no arquivo e '>>' faz um append na útima linha)

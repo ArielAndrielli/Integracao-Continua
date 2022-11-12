@@ -1,0 +1,89 @@
+vagrant init
+vagrant up
+vagrant status
+vagrant up --provision
+vagrant reload --provision
+vagrant ssh nomedamaquina
+vagrant halt
+vagrant destroy
+
+- Mostrar o diretório
+pwd
+- Listar o que tem no diretório
+ls
+- Diretório home do usuário
+~
+- Listar o que tem no diretório com arquivos ocultos
+ls -a
+- Mostrar mais informações sobre os arquivos e diretórios
+ls -la
+- Os que começam com d são diretórios
+- Permissões
+sistema octal: 0 menor permissão, 7 maior permissão
+- Criar arquivo novo no Linux
+
+> nomedoarquivo
+> 
+- Alterar permissão de um arquivo (exemplo)
+chmod 0644
+- Mudar o proprietário de um arquivo (exemplos)
+chown root:vagrant aula
+chown joao:vagrant aula
+sudo chown joao:vagrant aula
+- Criar usuário (exemplo)
+sudo useradd joao
+- Criar grupo
+groupadd nomedogrupo
+- Inserir conteúdo dentro de um arquivo
+echo "texto" > nomedoarquivo
+- Usando 2 >> escreve uma linha embaixo
+- Instala pacotes - centos
+yum
+- Instala pacotes - ubuntu
+apt
+- Criar diretório
+mkdir
+- Scripts
+Começam com #bin/sh
+
+sudo docker container run hello-world
+sudo docker container ls
+sudo docker container --all
+sudo docker image ls
+sudo docker container rm nomedocontainer
+docker run
+docker stop
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+**Definir o local do volume**
+
+export GITLAB_HOME=/srv/gitlab
+
+[https://docs.gitlab.com/ee/install/docker.html#install-gitlab-using-docker-compose](https://docs.gitlab.com/ee/install/docker.html#install-gitlab-using-docker-compose)
+
+**Trazer portas que estão em uso**
+
+ss -plutan
+
+docker ps
+
+docker compose up -d
+
+docker-compose -f docker-compose.yaml down
+
+export GITLAB_HOME=/vagrant/gitlab
+
+docker compose up -d
+
+**Gerando a senha  do gitlab novamente**
+
+docker-compose -f docker-compose.yaml down
+
+sudo rm -rf /data /config /logs
+
+docker-compose -f docker-compose.yaml up -d
+
+docker ps
+
+sudo docker exec -it vagrant-web-1 grep 'Password:' /etc/gitlab/initial_root_password

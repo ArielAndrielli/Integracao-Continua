@@ -87,3 +87,65 @@ docker-compose -f docker-compose.yaml up -d
 docker ps
 
 sudo docker exec -it vagrant-web-1 grep 'Password:' /etc/gitlab/initial_root_password
+
+Endereço IP
+
+ip a | grep inet
+
+
+---------------------- Grupo de jobs ----------------------
+stages:
+    - componentes
+    - teste
+    - checagem
+
+Construindo componentes:
+  stage: componentes
+  script:
+      - mkdir carro
+      - cd carro
+      - echo "roda" >> carro.txt
+      - echo "chassi" >> carro.txt
+      - echo "bancos" >> carro.txt
+  artifacts:
+      paths:
+        - /builds
+
+Avaliando chassi:
+    stage: teste
+    script:
+        - grep "chassi" carro/carro.txt
+
+Checando carro:
+    stage: checagem
+    script:
+        - pwd
+        - ls -l carro/
+        - cat carro/carro.txt
+
+
+---------------------Grupo de jobs 2------------------------
+
+image: docker:20-dind
+
+stages:
+    - image_build
+    - image_upload
+
+Construindo imagem:
+    stage: image_build
+    script:
+        - docker build -f Dockerfile -t 0502j/fatec-web:latest
+
+    artifacts:
+        paths:
+            - /builds
+Upload Imagem:
+    stage: image_upload
+    before_script:
+    - docker login -u $DOCKER_SECRET | docker login --username $DOCKER_USER --password-stdin
+    script:
+        - docker push 0502j/fatec-web:latest
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -149,3 +149,34 @@ Upload Imagem:
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+19/11/22
+
+image: docker:19-dind
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+services:
+  - docker:dind
+
+stages:
+  - verify_dockerfile
+  - image_build
+  
+Construindo Imagem:
+  stage: image_build
+  before_script:
+    - echo $DOCKER_SECRET | docker login --username $DOCKER_USER --password-stdin
+  script:
+    - pwd 
+    - docker build -f Dockerfile -t davitoledo/fatec-web:latest
+    - docker image ls 
+    - docker push davitoledo/fatec-web:latest
+
+Verifica Dockerfile:
+  stage: verify_dockerfile
+  script:
+    - test -f Dockefile
